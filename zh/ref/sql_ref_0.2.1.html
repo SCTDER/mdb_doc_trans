@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数蚕内存数据库sql参考-0.2.1</title>
+    <meta name="keywords" content="数蚕,数蚕sql,数据库,数蚕数据库,数蚕sql参考,数据库参数,参数示范,正确示范">
+    <meta name="description" itemprop="description" content="数蚕参考是数蚕数据库参数示范，供用户予以使用参考。">
+    <meta itemprop="image" content="http://www.shucantech.com/common_logo.png">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        margin: 0;
+    }
+    
+    html {
+        background-color: rgb(248, 248, 247);
+        overflow-x: hidden;
+    }
+    
+    .all {
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    a {
+        text-decoration: none;
+        color: #1e8574;
+    }
+    
+    a:hover {
+        color: #71AFA4;
+    }
+    
+    .header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 4em;
+        background-color: rgb(255, 255, 255);
+        line-height: 4em;
+    }
+    
+    #menu {
+        display: none;
+    }
+    
+    #menu a {
+        text-decoration: none;
+        color: rgb(133, 133, 133);
+        font-size: 16px;
+    }
+    
+    #menu:before {
+        content: url(../img/arrow.png);
+        float: right;
+    }
+    
+    #menu:hover .content {
+        display: block;
+    }
+    
+    .arrow {
+        background: url(../img/arrow.png) no-repeat 30% -15%;
+        opacity: .5;
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        margin-left: 0.1em;
+        transition: .3s;
+    }
+    
+    .logo {
+        width: 70px;
+        height: auto;
+        float: left;
+        margin: 10px 360px 10px 65px;
+    }
+    
+    span.title {
+        font-size: 22px;
+        color: rgb(34, 34, 34);
+    }
+    
+    span.slogan {
+        font-size: 18px;
+        color: rgb(48, 48, 48);
+        padding-left: 100px;
+    }
+    
+    .title {
+        margin: 2em auto .5em;
+        font-weight: normal;
+        text-align: center;
+        color: rgb(160, 160, 160);
+    }
+    
+    .flex {
+        display: flex;
+        padding-top: 4em;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    h2 {
+        padding: 60px 20px 10px;
+        font-size: 22px;
+        padding-left: 40px;
+    }
+    
+    h4,
+    h3 {
+        padding: 8px 40px;
+        padding-left: 40px;
+        line-height: 1.8em;
+    }
+    
+    h3 {
+        padding-top: 40px;
+    }
+    
+    h2#overview {
+        padding-top: 80px;
+    }
+    
+    p {
+        padding: 5px 40px;
+        font-size: 16px;
+        line-height: 2em;
+    }
+    
+    #content {
+        width: 240px;
+        float: left;
+        background-color: rgb(247, 247, 247);
+        border-right: 1px solid #e9eaeb;
+        font-size: 110%;
+        position: fixed;
+        overflow-y: auto;
+        height: 100%
+    }
+    
+    .detail {
+        margin: auto;
+        margin-left: 260px;
+        display: block;
+        margin-bottom: 80px;
+    }
+    
+    .light,
+    .inner {
+        max-width: 1000px;
+        line-height: 1.5em;
+        font-size: 16px;
+        padding-top: 20px;
+    }
+    
+    img {
+        width: 100%;
+        height: auto;
+    }
+    
+    pre {
+        display: block;
+        white-space: pre;
+        overflow-x: auto;
+        background-color: rgb(247, 247, 247);
+        color: #000000;
+        padding: 1em 2em;
+        border-color: rgba(255, 255, 255, 0.3);
+        border-width: 3px;
+        border-style: solid;
+        border-radius: 10px;
+    }
+    
+    .ts {
+        font-size: 20px;
+        color: rgb(252, 0, 0);
+    }
+    
+    .c {
+        font-size: 16px;
+        line-height: 35px;
+        font-weight: 500;
+    }
+    
+    .tc {
+        font-weight: bold;
+        color: rgb(255, 176, 7);
+    }
+    
+    ul {
+        margin-top: 2em;
+        margin-bottom: 5em;
+    }
+    
+    li {
+        margin: .2em auto;
+        padding: .2em 2em;
+    }
+    
+    .ul a {
+        text-decoration: none;
+        color: rgb(117, 117, 117);
+        font-size: 16px;
+    }
+    
+    .ul a.active {
+        /*color: rgb(241, 229, 189);*/
+        color: #000000;
+        font-weight: 700;
+    }
+    
+    .child {
+        padding-left: 15px;
+        padding-top: 4px;
+    }
+    
+    .child a {
+        line-height: 1.8em;
+    }
+    
+    @media only screen and (max-width:732px) {
+        .logo {
+            width: 60px;
+            margin: 15px;
+        }
+        span.title {
+            font-size: 20px;
+        }
+        span.slogan {
+            display: none;
+        }
+        #menu {
+            display: block;
+            position: fixed;
+            top: 4em;
+            background-color: rgb(243, 243, 243);
+            width: 100%;
+            height: 3em;
+            padding: 10px 30px;
+        }
+        #content {
+            display: none;
+            top: 110px;
+            left: 0;
+            height: 600px;
+            width: 100%;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            background-color: rgb(248, 248, 247);
+            overflow-y: auto;
+        }
+        .detail {
+            margin-left: 0;
+        }
+        .light {
+            width: 320px;
+            margin: 0 20px;
+        }
+        pre {
+            width: 300px;
+        }
+        h2,
+        h3 {
+            padding: 90px 20px 0;
+        }
+        p {
+            padding: 10px 20px;
+        }
+        ul {
+            margin-top: 2em;
+            margin-bottom: 8em;
+        }
+        .ul a:hover,
+        .ul a.active {
+            /*color: rgb(241, 229, 189);*/
+            color: #000000;
+            font-weight: 500;
+        }
+    }
+</style>
+
+<body>
+    <div class="all">
+        <div class="header">
+            <a href="http://www.shucantech.com/"><img class="logo" src="../img/logo.png" alt="数蚕科技"></a>
+            <span class="title">数蚕内存数据库sql参考文档 0.2.1</span>
+            <span class="slogan"></span>
+        </div>
+        <div id="menu">
+            <a href="#"><span>导航栏</span></a>
+        </div>
+        <div class="flex">
+            <div id="content">
+                <div>
+                    <ul class="ul">
+                        <li>
+                            <a href="#overview" class="">概述</a>
+                        </li>
+                        <li>
+                            <a href="#config" class="">系统组成</a>
+                        </li>
+                        <li>
+                            <a href="#process" class="">sql查询流程</a>
+                        </li>
+                        <li>
+                            <a href="#sql" class="">sql基础规范</a>
+                        </li>
+                        <li>
+                            <a href="#single" class="">单行注释</a>
+                        </li>
+                        <li>
+                            <a href="#multi" class="">多行注释</a>
+                        </li>
+                        <li>
+                            <a href="#integer" class="">整数</a>
+                        </li>
+                        <li>
+                            <a href="#float" class="">浮点数</a>
+                        </li>
+                        <li>
+                            <a href="#string" class="">字符串</a>
+                        </li>
+                        <li>
+                            <a href="#date" class="">日期型</a>
+                        </li>
+                        <li>
+                            <a href="#time" class="">时间型</a>
+                        </li>
+                        <li>
+                            <a href="#datetime" class="">日期时间型</a>
+                        </li>
+                        <li>
+                            <a href="#expression" class="">表达式</a>
+                        </li>
+                        <li>
+                            <a href="#function" class="">函数</a>
+                        </li>
+                        <li>
+                            <a href="#where" class="">where条件</a>
+                        </li>
+                        <li>
+                            <a href="#select" class="">select语句</a>
+                        </li>
+                        <li>
+                            <a href="#insert" class="">insert语句</a>
+                        </li>
+                        <li>
+                            <a href="#delete" class="">delete语句</a>
+                        </li>
+                        <li>
+                            <a href="#update" class="">update语句</a>
+                        </li>
+                        <li>
+                            <a href="#create" class="">create语句</a>
+                        </li>
+                        <li>
+                            <a href="#alter" class="">alter语句</a>
+                        </li>
+                        <li>
+                            <a href="#drop" class="">drop语句</a>
+                        </li>
+                        <li>
+                            <a href="#truncate" class="">truncate语句</a>
+                        </li>
+                        <li>
+                            <a href="#save" class="">save语句</a>
+                        </li>
+                        <li>
+                            <a href="#load" class="">load语句</a>
+                        </li>
+                        <li>
+                            <a href="#import" class="">import语句</a>
+                        </li>
+                        <li>
+                            <a href="#domain" class="">字段名</a>
+                        </li>
+                        <li>
+                            <a href="#table" class="">表名</a>
+                        </li>
+                        <li>
+                            <a href="#rows" class="">rows_of</a>
+                        </li>
+                        <li>
+                            <a href="#cols" class="">cols_of</a>
+                        </li>
+                        <li>
+                            <a href="#fields" class="">fields_of</a>
+                        </li>
+                        <li>
+                            <a href="#showtab" class="">show tables</a>
+                        </li>
+                        <li>
+                            <a href="#exec" class="">exec</a>
+                        </li>
+                        <li>
+                            <a href="#atom" class="">atom_exec</a>
+                        </li>
+                        <li>
+                            <a href="#backup" class="">backup</a>
+                        </li>
+                        <li>
+                            <a href="#restore" class="">restore</a>
+                        </li>
+                        <li>
+                            <a href="#opt" class="">优化建议</a>
+                        </li>
+                        <li>
+                            <a href="#dev" class="">开发说明</a>
+                        </li>
+                        <li>
+                            <a href="#faq" class="">常见问题</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="detail">
+                <figure class="light" id="overview">
+                    <h2>概述</h2>
+                    <p>数蚕内存数据库支持的最小操作单位为表,即不存在库概念；数蚕内存数据库基于列式存储，支持C++基础数据结构类型，包括<a href="#integer">整型</a>(包括u08、i08、u16、i16、u32、i32、u64、i64)、<a href="#float">浮点型</a>(包括float、double)、<a href="#string">字符串型</a>(string)、<a href="#date">日期型</a>(date)、<a href="#time">时间型</a>(time)、
+                        <a href="#datetime">日期时间型</a>(datetime)。</p>
+                    <p>数蚕内存数据库任意字段隐含一个基于平衡树的索引，详见<a href="#create">create语句</a>，sql语句中<a href="#save">save</a>和<a href="#load">load</a>语句支持表的保存与加载。
+                        <br>说明：数蚕内存数据库查询语言(以下简写为sql)，类似标准查询语言(以下简写为SQL)，基础语法结构兼容，整体<a href="#process">处理流程</a>不兼容SQL。</p>
+                    <p>注意以下sql操作方法不同于标准SQL：
+                        <li>数蚕sql使用==表示相等</li>
+                        <li>数蚕sql where语句只支持范围区间判断，详见<a href="#where">where条件说明</a></li>
+                        <li>数蚕sql count内部参数不支持*，表达式部分只支持单独*</li>
+                    </p>
+                    <p>
+                        数蚕内存数据库支持的特性：
+                        <li>支持sql子查询、多表查询</li>
+                        <li>支持最高级别事务</li>
+                        <li>支持字符模糊匹配和正则表达式匹配</li>
+                        <li>支持完整的utf8字符编码(且唯一的)</li>
+                        <li>良好的C/C++/JAVA/Python语言接口操作形式</li>
+                        <li>支持外部持久化、csv交换、远程备份</li>
+                        <li>支持Windows、Linux系统</li>
+                        <li>支持本地、网络多种模式</li>
+                        <li>特性丰富的GUI客户端</li>
+                    </p>
+                </figure>
+                <figure class="light" id="config">
+                    <h2>系统组成</h2>
+                    <p>
+                        数蚕内存数据库包含两种模式可执行程序和开发SDK和示例。</p>
+                    <p>本地模式直接运行相应sct_local_mem.exe；进入执行环境后，输入"help"命令查看帮助信息或直接输入sql语句执行，相应sql规范见<a href="#sql">sql快速指导</a>部分。</p>
+                    <p>网络模式服务端为sct_s_mem.exe,服务端使用sct_mdb.toml作为配置文件，目前配置内容仅为绑定端口和用户组信息，toml文件规范详见<a href="https://toml.io/cn/v1.0.0-rc.1">相关规范</a>(注意数蚕使用的配置文件不支持toml表数组)。</p>
+                    <p>服务端为sct_s_mem.exe启动时会默认执行工作目录下的"init.sql"文件, 这对于内存数据库的初始数据加载非常有用。</p>
+                    <p id="login">网络模式客户端为sct_c_mem.exe,客户端运行必须指定用户名密码和可选的IP端口。以下为有效的运行示例。
+                        <br>sct_c_mem.exe user user_pwd
+                        <br>sct_c_mem.exe user user_pwd 192.168.1.11 55555</p>
+                    <p>
+                        网络模式验证策略默认为第一次登陆必须指定用户名密码，3次错误停止1分钟，再2次错误停止30分钟，再1次错误停止15天，再1次错误永远封禁，直至服务重启。</p>
+                    <p>相应系统文件可能不包含本帮助文档，完整的帮助参考文件为本页面网站内容为最新参考。</p>
+                </figure>
+                <figure class="light" id="process">
+                    <h2>sql查询流程</h2>
+                    <p>内存实际存储是列式存储</p>
+                    <img src="../img/col.svg" alt="存储方式">
+                    <p>数蚕数据库数据处理流程如下：</p>
+                    <p>where语句内容必为使用索引(此处不同于标准SQL语句)的检索条件，并应用条件过滤数据行。</p>
+                    <p>行信息取出列内容并进行表达式计算，生出数据集。</p>
+                    <img src="../img/where.svg" alt="">
+                    <p>数据集可以进行横向纵向（join/union）两种扩展，扩展为更大单一数据集。</p>
+                    <img src="../img/data.svg" alt="">
+                    <p id="after">单一集进行排序、过滤、分组聚合、投影、重命名和重计算几种后置运算操作。</p>
+                    <img src="../img/set.svg" alt="">
+                    <p>排序</p>
+                    <img src="../img/sort.svg" alt="">
+                    <p>过滤有以下五种操作：</p>
+                    <p>行内过滤</p>
+                    <img src="../img/inner.svg" alt="">
+                    <p>行间过滤，复杂度n*n</p>
+                    <img src="../img/each.svg" alt="">
+                    <p>行邻过滤</p>
+                    <img src="../img/adj.svg" alt="">
+                    <p>行范围过滤</p>
+                    <img src="../img/range.svg" alt="">
+                    <p>存在/子查询过滤</p>
+                    <img src="../img/exist.svg" alt="">
+                    <p>分组聚合</p>
+                    <img src="../img/group.svg" alt="">
+                    <p>投影</p>
+                    <img src="../img/project.svg" alt="">
+                    <p>重命名</p>
+                    <img src="../img/rename.svg" alt="">
+                    <p>重计算</p>
+                    <img src="../img/recompute.svg" alt="">
+
+
+                </figure>
+                <figure class="light" id="sql">
+                    <h2>sql基础规范</h2>
+                    <p>本文用于快速指导写出简单有效的数蚕数据库sql语句。
+                        <br>sql语句由DDL、DML组成，其中DML由
+                        <a href="#select">select</a>、
+                        <a href="#insert">insert</a>、
+                        <a href="#delete">delete</a>、
+                        <a href="#update">update</a>、
+                        <a href="#rows">rows_of</a>、
+                        <a href="#cols">cols_of</a>、
+                        <a href="#fields">fields_of</a>、
+                        <a href="#showtab">show tables</a>等组成；DDL由
+                        <a href="#create">create</a>、
+                        <a href="#alter">alter</a>、
+                        <a href="#drop">drop</a>、
+                        <a href="#save">save</a>、
+                        <a href="#load">load</a>、
+                        <a href="#exec">exec</a>等组成。
+                        <br>每一个sql语句非常数表达式或注释内容可接任意多个空白或注释字符，空白字符为0x09到0x0c(注意空白字符不包含0x0d，这意味着sql语句执行行尾默认为unix格式)或0x20的ASCII字符。
+                        <br>所有sql语句大小写严格区分，字符编码为唯一编码UTF-8。
+                        <br>每一个sql语句结束符为";"，结束符在不影响语句解析时可以省略。</p>
+                </figure>
+                </figure>
+                <figure class="light" id="single">
+                    <h2>单行注释</h2>
+                    <pre><code class="mode" ><span class="c">//这是一个注释</span></code></pre>
+                </figure>
+                <figure class="light" id="multi">
+                    <h2>多行注释</h2>
+                    <pre><code class="mode" ><span class="t"></span><span class="c">/*这是一
+个注释
+*/
+</span></code></pre>
+                </figure>
+                <figure class="light" id="integer">
+                    <h2>整数</h2>
+                    <pre><code class="mode" ><span class="c">0                      //有符号或无符号整数
+1                      //省略符号整数
+100                    //省略符号整数
++1                     //有符号整数
+-100                   //有符号整数
+-1000                  //有符号整数
++0b000                 //有符号二进制整数
+-0xa0b3                //有符号十六进制整数
+0xA0cD                 //无符号大小写混写十六进制整数
+-847u2                 //有符号两字节长整数
+56u1                   //无符号一字节长整数
+0x0au1                 //无符号十六进制一字节整数</span></code></pre>
+                </figure>
+                <figure class="light" id="float">
+                    <h2>浮点数</h2>
+                    <pre><code class="mode" ><span class="c">+0.                    //无小数部分正浮点数
+-0.01                  //仅小数部分负浮点数
+-100.0                 //仅整数部分负浮点数
+-100e20                //仅整数及正指数部分负浮点数
+1.25E-32               //小数及负指数部分正浮点数
+1.25E+20               //小数及正指数部分正浮点数
+1.00E20f               //严格四字节浮点数
+1.00E20d               //严格八字节浮点数</span></code></pre>
+                </figure>
+                <figure class="light" id="string">
+                    <h2>字符串</h2>
+                    <pre><code class="mode" ><span class="c">"a和中文bc"                            //包含中英文的有效字符串(UTF-8编码)
+"ab和中文c\"\'\\\a\b\f\n\r\t\v"        //包含控制转义的有效字符串
+"ab和中文c\x0a\x0001\uaabb\Uaabbccdd"  //包含十六进制转义和Unicode转义的有效字符串
+@"aabbcc(018d7##@!@^_""AA6)aabbcc"    //以aabbcc为分割的原始字符串</span></code></pre>
+                </figure>
+                <figure class="light" id="date">
+                    <h2>日期型</h2>
+                    <pre><code class="mode" ><span class="c">2020-02-03                              //2020年2月3日
+0020-01-31                              //20年1月31日</span></code></pre>
+                </figure>
+                <figure class="light" id="time">
+                    <h2>时间型</h2>
+                    <pre><code class="mode" ><span class="c">18:59:31                                 //18时59分31秒
+00:00:01.100                             //0时0分1.1秒</span></code></pre>
+                </figure>
+                <figure class="light" id="datetime">
+                    <h2>日期时间型</h2>
+                    <pre><code class="mode" ><span class="c">2020-02-03 18:59:31.123                  //2020年2月3日18时59分31.123秒</span></code></pre>
+                </figure>
+                <figure class="light" id="expression">
+                    <h2>表达式</h2>
+                    <pre><code class="mode" ><span class="c">表达式使用C语言表达式基础结构，保留对应运算符号优先级
+
+id                           //域表达式表示对应字段值
+(id)                         //括号表达式表示优先括号内容求值
+id+10                        //加性表达式表示域字段与常数值10的和
+id+max(grade)                //加性表达式表示域字段与grade域的最大值之和
+id*sin(id)                   //积性表达式表示id域与id域的sin值之积
+id << 10                     //移位表达式表示id域左移10位的值
+id&&sin(id)>0                //逻辑与表达式表示id和sin(id)>0的逻辑与结果
+id/sin(id)                   //积性表达式表示id与sin(id)之商
+id&min(id)                   //位与表达式表示id与min(id)位与结果
+id!=0||id==10                //逻辑或表达式表示id不等于0与id等于10的逻辑或结果
+
+表达式类型转换及函数处理遵循以下原则
+若数据类型可依据C++语言隐式转换为目标类型，则依C++隐式转换为目标类型。
+函数处理过程为：若函数参数为字段，则函数作用于字段每一行的值，若函数参数为常数值，则使用常数值作为函数参数，若两参数
+行数不相等，则使用较长行数作为输出结果，不足的较短参数使用最后一位连续填充至等长。</span></code></pre>
+                </figure>
+                <figure class="light" id="function">
+                    <h2>可用于表达式中函数</h2>
+                    <pre><code class="mode" ><span class="c">函数后为功能解释及使用示例
+
+类型转换函数
+x2i08                 //任意数据类型转换为一字节有符号整数          x2i08(type), x2i08(2.0)
+x2i16                 //任意数据类型转换为两字节有符号整数          x2i16(type), x2i16(2.0)
+x2i32                 //任意数据类型转换为四字节有符号整数          x2i32(type), x2i32(2.0)
+x2i64                 //任意数据类型转换为八字节有符号整数          x2i64(type), x2i64(2.0)
+x2u08                 //任意数据类型转换为一字节无符号整数          x2u08(type), x2u08(2.0)
+x2u16                 //任意数据类型转换为两字节无符号整数          x2u16(type), x2u16(2.0)
+x2u32                 //任意数据类型转换为四字节无符号整数          x2u32(type), x2u32(2.0)
+x2u64                 //任意数据类型转换为八字节无符号整数          x2u64(type), x2u64(2.0)
+x2flt                 //任意数据类型转换为四字节浮点数             x2flt(id), x2flt(10)
+x2dbl                 //任意数据类型转换为八字节浮点数             x2dbl(id), x2dbl(10)
+x2str                 //任意数据类型转换为字符串                  x2str(id), x2str(10)
+x2date                //任意数据类型转换为日期                    x2date(b_date),x2date("2012-03-05")
+x2time                //任意数据类型转换为时间                    x2time(b_time),x2time("18:35:24")
+x2datetime            //任意数据类型转换为日期时间                x2datetime(b_dt),x2datetime("2012-03-05 18:35:24")
+
+聚集函数
+sum                   //求某一列之和                           sum(id)
+product               //求某一列积                             product(id)
+min                   //求某一列最小值                         min(id)
+max                   //求某一列最大值                         max(id)
+avg                   //求某一列均值                           avg(id)
+count                 //求某一列总数                           count(id)
+sort                  //排序某列                               sort(id)
+unique                //去重某一列                             unique(sort(id))
+count_unique          //获取去重后数目                         count_unique(sort(id))
+
+范围函数
+first                 //取某一列第一个元素                      first(id)
+last                  //取某一列最后一个元素                    last(id)
+first_k               //取某一列前k个元素                       first_k(id,10)
+last_k                //取某一列最后k个元素                     last_k(id,20)
+range                 //取某一列区间元素                        range(id,1,5)
+nth                   //取某一列第n个元素                       nth(id,10)
+
+字符串函数
+lcase                 //转换字符串为小写                       lcase("Abd")
+ucase                 //转换字符串为大写                       ucase("abc")
+concat                //连接两个字符串                         concat("abc","012")
+length                //求字符串长度                           length("NAME")
+substr                //取字符串从索引起始至固定数目的子字符串      substr(name, 1, 4)
+all_case              //获取所有大小写组合字符串                 all_case("Insert")
+starts                //判定字符串是否以某串开始                 starts(name, "Jim")
+contain               //判定字符串是否包含目标                   contain(desc, "error")
+ends                  //判定字符串是否以某串结束                 ends(word, "es")
+replace               //替换字符串的子串为新的串                 replace(name, 2, 4, "abc")
+trim_l                //移出字符串左边连续空格                   trim_l(name)
+trim_r                //移出字符串右边连续空格                   trim_r(name)
+trim                  //移出字符串两边连续空格                   trim(name)
+reg_match             //正则表达式匹配(使用ECMA-262(2011)标准)   reg_match(id,"[2-9]+.*")
+fuzzy_match           //匹配字符差异的模糊检索              fuzzy_match(id,"what"),fuzzy_match(type,"system", 5)
+
+数学函数
+abs                   //求数值的绝对值                         abs(value)
+ceil                  //求数值的不小于给定值的最小整数            ceil(value)
+floor                 //求数值的不大于给定值的最大整数            floor(value)
+round                 //求数值的四舍五入值                      round(3.4)
+exp                   //求数值的e的定幂                        exp(value)
+pow                   //求数值的幂                            pow(id,2.0)
+pi                    //常数值Π                               pi()
+sqrt                  //求数值的开平方                         sqrt(value)
+log                   //求数值的自然对数                       log(value)
+log2                  //求数值的以2底对数                      log2(value)
+log10                 //求数值的以10底对数                     log10(value)
+log1p                 //求数值+1的自然对数                     log1p(value)
+sin                   //求数值的正弦值                         sin(value)
+cos                   //求数值的余弦值                         cos(value)
+tan                   //求数值的正切值                         tan(value)
+asin                  //求数值的反正弦值                       asin(value)
+acos                  //求数值的反余弦值                       acos(value)
+atan                  //求数值的反正切值                       atan(value)
+e                     //数学常数e                             e()
+
+内部函数
+raw2hex               //内存十六进制显示                       raw2hex(id)
+hex2raw               //十六进制转为内存数据表示                 hex2raw("00aabb")
+row_id                //输出行号                              row_id()
+id                    //输出内部id                            id()
+now_id                //获取内部最大的未使用id                  now_id()
+hash_passwd           //生成某字符串的hash密码(用于配置文件)      hash_passwd("mypass")
+
+统计函数
+var                   //输出方差                             var(id)
+stddev                //标准差                               stddev(id)
+
+序列函数
+seq                   //输出序列0到n                        seq(10), seq(count(id)), seq(3)*3
+rand                  //输出n个0到1.0随机数                 rand(10)
+constants             //输出n个常数                         constants(1,10)， constants("sss",10)
+
+日期函数
+last_day              //返回日期月份的最后一天             last_day(date())
+is_leap               //返回是否是闰年                    is_leap(date())
+now                   //返回当前日期时间                   now()
+date                  //返回当前日期                      date()
+time                  //返回当前时间                      time()
+add_day               //返回n天之后时间或日期时间          add_day(now(),100)
+add_nanosec           //返回n纳秒之后时间或日期时间        add_nanosec(time(),10000000)
+sub_day               //返回n天之前时间或日期时间          sub_day(now(),100)
+sub_nanosec           //返回n纳秒之前时间或日期时间        sub_nanosec(time(),10000000)
+day_diff              //返回日期或日期时间天数之差         day_diff(x2date("2012-01-01"),date())
+nanosec_diff          //返回时间或日期时间的纳秒之差        nanosec_diff(x2datetime("2012-01-01 18:24:25"),now())
+year_of               //返回日期或日期时间的年部分          year_of(date())
+month_of              //返回日期或日期时间的月部分          month_of(date())
+day_of                //返回日期或日期时间的天部分          day_of(date())
+hour_of               //返回时间或日期时间的时部分          hour_of(time())
+minute_of             //返回时间或日期时间的分钟部分         minute_of(time())
+second_of             //返回时间或日期时间的秒部分          second_of(time())
+nanosec_of            //返回时间或日期时间的纳秒部分         nanosec_of(time())
+date_of               //返回日期时间的日期部分              date_of(now())
+time_of               //返回日期时间的时间部分              time_of(now())
+weekday               //返回日期或日期时间的星期(0为周一)     weekday(now())
+weekday_name          //返回日期或日期时间的星期名称          weekday_name(now())
+weekday_cname         //返回日期或日期时间的星期中文名称       weekday_cname(now())</span></code></pre>
+                </figure>
+                <figure class="light" id="where">
+                    <h2>where条件允许使用关系运算、范围运算、in运算及逻辑运算</h2>
+                    <pre><code class="mode" ><span class="c">id>=10                           //大于等于逻辑运算
+id>=all (select id from t2)      //大于等于子查询全部结果的逻辑运算
+id==any (select id from t2)      //等于子查询任意结果的逻辑运算
+id==any (1,3,5,7)                //等于集合的任意结果的逻辑运算
+id==10                           //等于逻辑运算
+id!=10                           //不等于逻辑运算
+id>=10&&id<=20                   //关系运算之间的逻辑与运算
+id>=10||(id < 5&& id > 1)        //关系运算之间的逻辑或运算
+10 <= id <= 20                   //关系运算的小于等于、小于等于运算
+10 < id <= 20                    //关系运算的小于、小于等于运算
+
+first                            //范围运算的第一个
+last                             //范围运算的最后一个
+first 100                        //范围运算的前100个
+last 100                         //范围运算的后100个
+range 10 100                     //范围运算的第10到100个
+nth 10                           //范围运算的第10个的数
+id max                           //值范围运算的最大的一个
+id min                           //值范围运算的最小的一个
+id max 100                       //值范围运算的最大的前100个
+id min 100                       //值范围运算的最小的前100个 
+
+id in (1,2,3,4,7)                //in运算取id为1,2,3,4,7的id
+id in (select id from t2);       //取出id属于子表达式中的结果
+id not in (select id from t2);   //取出id不属于子表达式中的结果
+
+</span>
+<span class="ts">注意以下为无效的where条件</span>
+<span class="c">10 < id                          //字段名id应该放在前面</span></code></pre>
+                </figure>
+                <figure class="light" id="select">
+                    <h2>select语句</h2>
+                    <pre><code class="mode" ><span class="c">select * from table1;
+//从table1选出所有字段
+
+select id from tab2;
+//从tab2选出id字段
+
+select id /sin(id) from tab2 where id < 10;
+//从tab2种选出id小于10的id数据并求id除以sin(id)的值
+
+select max(id) from tab2 where id < 10&&id > 3;
+//从tab2中选出大于3小于10的最大id
+
+select id << 10 from tab2 where id!=3
+//从tab2中选出id不等于3的id并左移10位
+
+select sin(id),name into t2 from t1 where id < 10;
+//从t1中选出id小于10以sin(id),name为列插入t2
+
+select * from t1 where id in (select id2 from t2 where id2 > 10);
+//从t1中选出当id在t2中当id2大于10的id2中t1的全部
+
+select * from t1 where id < 10 order by id, name asc;
+//从t1中选出当id小于10的全部后按id和name排字典升序
+
+select * from t1 where id < 10 group sum(id) by name;
+//从t1中选出当id小于10的全部后用name来分组sum(id)
+
+select * from t1 where id < 10 all_each on distinct;
+//从t1中选出当id小于10的全部后过滤所有行去重
+
+select * from t1 where id < 10 all_each on id==_id && name==_name;
+//从t1中选出当id小于10的全部后过滤所有行id相同和name相同的数据,_表示上一集合的每一个
+
+select * from t1 where id < 10 adj on id>_id && name==_name;
+//从t1中选出当id小于10的全部后过滤行邻id大于上一个id和name相同的数据,_表示上一行
+
+select * from t1 where id < 10 inner on id==name;
+//从t1中选出当id小于10的全部后过滤行内id和name相同的数据
+
+select * from t1 where id < 10 first;
+//从t1中选出当id小于10的全部后过滤保留第一行
+
+select * from t1 where id < 10 first 30;
+//从t1中选出当id小于10的全部后过滤保留前30行
+
+select * from t1 where id < 10 range 30 40;
+//从t1中选出当id小于10过滤保留30行到40行范围内的数据
+
+select id1,name from t1 where id < 10 exists (select id from t2 where id==id1);
+//从t1中选出当id小于10的并且在t2中存在的id1和name
+
+select id as nid,name from t1 where id < 10 not exists (select id from t2 where id==nid);
+//从t1中选出当id小于10的并且在t2中不存在id等于nid的nid和name
+
+select * from t1 where id < 10 recompute id=id+10;
+//从t1中选出当id小于10的全部后重计算id等于id加10
+
+select * from t1 where id < 10 recompute id+=10,name=x2str(id);
+//从t1中选出当id小于10的全部后重计算列id等于id加10，name等于转换成字符串的id
+
+select * from t1 where id < 10 project except id;
+//从t1中选出当id小于10的全部后投影保留除id以外的列数据
+
+select * from t1 where id < 10 project id;
+//从t1中选出当id小于10的全部后投影保留列id
+
+select * from t1 where id < 10 rename id newid;
+//从t1中选出当id小于10的全部后重命名id为newid
+
+select * from t1 where id < 10 project id range 30 40 group sum(id) by id order by id rand rename id newid;
+//从t1中选出当id小于10的全部后投影id，过滤30到40范围内的数据，用id来分组sum(id)，按id随机排序，重命名id为newid
+
+select * from t1 where id1 < 10 join (select * from t2 where id2 < 10 on id1==id2);
+//从t1中选出当id1小于10的全部后横向扩展从t2中选出当id2小于10在id1等于id2时的全部
+
+select sin(seq(count(id))+1), id, name from t1 where id < 10 union (select * from t2 where id < 10);
+//从t1中选出当id小于10的sin(seq(count(id))+1), id, name纵向扩展从t2中选出id小于10的全部
+
+select sin(id) as sinid,id from t1 where id < 10 inner on sinid < id;
+//从t1中选出当id小于10的sin(id)作为sinid和id过滤保留行内sinid小于id的数据
+
+select * from t1 export as csv split by "," path = "t1.csv";
+//选出t1所有字段导出到以逗号为分割的t1.csv文件
+
+select * from t1 export as csv split by "," path += "t1.csv";
+//选出t1所有字段导出到或替换以逗号为分割的t1.csv文件</span></code></pre>
+                </figure>
+                <figure class="light" id="insert">
+                    <h2>insert语句</h2>
+                    <pre><code class="mode" ><span class="c">insert into tab1 (name,id) values("张三",100);                      //单条插入
+insert into tab2 (val,type)values(1.00,1)(2.00,2)(3.00,3);          //多条插入
+insert into t2 (id,name) select id,name from t1;                    //插入子查询结果
+insert into t2 (id,name) select seq(10)+1,"name"+x2str(seq(10)+1);  //插入自定义数据
+
+注意数蚕内存数据库不支持null字段，所以insert必须为每一字段指定值</span></code></pre>
+                </figure>
+                <figure class="light" id="delete">
+                    <h2>delete语句</h2>
+                    <pre><code class="mode" ><span class="c">delete from tab1 where id < 10;                       //从tab1中删除id小于10的所有数据</span></code></pre>
+                </figure>
+                <figure class="light" id="update">
+                    <h2>update语句</h2>
+                    <pre><code class="mode" ><span class="c">update tab1 set name="张三",id=10 where id==5;
+//更新tab1中id等于5的name字段为张三id为10
+
+update tab1 set value=10 where __id==5;
+//更新tab1中内部系统id等于5的value为10(注意__id为系统保留关键字，是id()函数输出的结果，仅用于双等号查询条件)</span></code></pre>
+                </figure>
+                <figure class="light" id="create">
+                    <h2>create语句</h2>
+                    <pre><code class="mode" ><span class="c">create table tab1 (id u08 (false, false));
+//创建表tab1，初始字段为id类型为一字节无符号整型，不允许重复
+
+create table tab1 (val float(),name string(true));
+//创建表tab1，初始字段val为浮点型不允许重复不允许自增，字段name为字符串型且允许重复
+
+注意目前字段第二参数为保留参数，实际使用无效果</span></code></pre>
+                </figure>
+                <figure class="light" id="alter">
+                    <h2>alter语句</h2>
+                    <pre><code class="mode" ><span class="c">alter table tab1 add id u08 (false, false);          //tab1中增加id字段
+alter table tab1 modify id u08 (false, false);       //tab1中修改id字段类型，修改会清空之前字段数据，请备份
+alter table tab1 rename id newid;                    //tab1中重命名id字段为newid
+alter table tab1 drop id;                            //tab1中删除id字段</span></code></pre>
+                </figure>
+                <figure class="light" id="drop">
+                    <h2>drop语句</h2>
+                    <pre><code class="mode" ><span class="c">drop table tab1                        //删除表tab1</span></code></pre>
+                </figure>
+                <figure class="light" id="truncate">
+                    <h2>truncate语句</h2>
+                    <pre><code class="mode" ><span class="c">truncate table t1;                     //快速清空t1并保留数据结构</span></code></pre>
+                </figure>
+                <figure class="light" id="save">
+                    <h2>save语句</h2>
+                    <pre><code class="mode" ><span class="c">save tab1 as bin path+="tab1.bin"              //保存表tab1为二进制数据文件，保存的文件名为tab1.bin,若存在文件则替换
+save tab1 as sql path="tab1.sql"               //保存表tab1为sql数据文件，保存的文件名为tab1.sql
+                    </span></code></pre>
+                </figure>
+                <figure class="light" id="load">
+                    <h2>load语句</h2>
+                    <pre><code class="mode" ><span class="c">注意：使用load时表不能存在
+
+load tab1 from bin path="tab1.bin"
+//加载表tab1的二进制数据文件，从文件中加载表tab1到数据库中
+
+load tab1 from sql path="tab1.sql"
+//加载表tab1的sql数据文件，从文件中加载表信息到数据库中(注意表名tab1忽略，导入表名由sql文件内容决定)</span></code></pre>
+                </figure>
+                <figure class="light" id="import">
+                    <h2>import语句</h2>
+                    <pre><code class="mode" ><span class="c">注意：使用import时表必须存在
+
+import t1 from csv split by "\t" path="t1.csv"    //以\t为分隔符将t1.csv导入到t1中
+import t1 from csvs path="t1.csvs"                //将t1.csvs导入到t1中(csvs文件表示字符串转换为ASCII码16进制字符)</span></code></pre>
+                </figure>
+                <figure class="light" id="domain">
+                    <h2>字段名</h2>
+                    <pre><code class="mode" ><span class="c">abc
+abc0123
+ABC_abc
+[有效非@字符串(见字符串)]</span></code></pre>
+                </figure>
+                <figure class="light" id="table">
+                    <h2>表名</h2>
+                    <pre><code class="mode" ><span class="c">abc
+abc0123
+ABC_abc
+[有效非@字符串(见字符串)]</span></code></pre></figure>
+                <figure class="light" id="rows">
+                    <h2>rows_of</h2>
+                    <pre><code class="mode" ><span class="c">rows_of tab1            //获取tab1的行数</span></code></pre>
+                </figure>
+                <figure class="light" id="cols">
+                    <h2>cols_of</h2>
+                    <pre><code class="mode" ><span class="c">cols_of tab1            //获取tab1的列数</span></code></pre>
+                </figure>
+                <figure class="light" id="fields">
+                    <h2>fields_of</h2>
+                    <pre><code class="mode" ><span class="c">fields_of tab1          //获取tab1的字段名</span></code></pre>
+                </figure>
+                <figure class="light" id="showtab">
+                    <h2>show tables</h2>
+                    <pre><code class="mode" ><span class="c">show tables             //获取数据库中的所有表名</span></code></pre>
+                </figure>
+                <figure class="light" id="exec">
+                    <h2>exec</h2>
+                    <pre><code class="mode" ><span class="c">exec "data.sql"
+//执行sql文件的所有语句</span></code></pre>
+                </figure>
+                <figure class="light" id="atom">
+                    <h2>atom_exec</h2>
+                    <pre><code class="mode" ><span class="c">atom_exec insert into t1 (id,name) select 1,"sss";delete from t1; commit
+//事务性执行多个以";"为间隔,以commit为结尾的语句(隔离级别为最高级别，通俗讲，要么全部成功，要么全部失败，多语句只
+支持insert,update,delete)</span></code></pre>
+                </figure>
+                <figure class="light" id="backup">
+                    <h2>backup</h2>
+                    <pre><code class="mode" ><span class="c">backup as bin path="b1.sbk"       //备份整个数据库为二进制数据并保存在b1.sbk文件中
+backup as sql path+="b1.sbk"      //备份整个数据库为sql数据并替换b1.sbk文件</span></code></pre>
+                </figure>
+                <figure class="light" id="restore">
+                    <h2>restore</h2>
+                    <pre><code class="mode" ><span class="c">restore from sql path="b1.sbk"    //从sql备份文件b1.sbk还原整个数据库
+restore from bin path="b1.sbk"    //从二进制备份文件b1.sbk还原整个数据库</span></code></pre>
+                </figure>
+                <figure class="light" id="opt">
+                    <h2>优化建议</h2>
+                    <p>数蚕内存数据库内部使用BST作为索引，针对每一列查询时检索数据通过BST树构造查询结果，非常适合小范围区间查询；where语句内容是检索条件的第一级过滤条件，是决定输出行数的最重要部分，查询条件应优先保证where部分过滤充分。</p>
+                    <p>where条件查询时优先使用a
+                        <=id <=b而不是id>= a&&id
+                            <=b 的形式的查询条件，前者会直接使用内部区间算法完成，后者会分别查询两部分区间进行集合求交运算。</p>
+                                <p>where条件优先使用&&，尽量避免使用||逻辑运算。</p>
+                                <p>where条件尽量不使用!=表达式。</p>
+                                <p>优先使用rows_of获取表的行数，而不是count字段。</p>
+                                <p>对于大数据表低有效数据优先使用查询过滤in进行初次过滤。</p>
+                                <p>对于大数据集多有效数据可根据条件使用exists进行过滤。</p>
+                                <p>sql解析时会缓存解析之后的语法树，建议尽量合并insert语句，避免多次解析。</p>
+                                <p>优先使用where语句过滤数据集，减少使用数据集后置操作处理。</p>
+                                <p>sql语句表达式求值较之C语言较慢，尽量避免使用大量表达式处理；大量表达式处理可以在解析表达式获取后使用C语言重新处理。</p>
+                                <p>大批量数据导入时优先使用load指令，次优使用import语句，最后使用exec或单独insert语句。</p>
+                </figure>
+                <figure class="light" id="dev">
+                    <h2>开发说明</h2>
+                    <p>数蚕内存数据库使用C++编写，网络端提供包装的C/C++/Java(包含JDBC)/Python语言接口，开发库位于sdk目录中。相应目录并包含一份简单的使用代码示例。</p>
+                    <p id="samples">安装包内提供vs2019的Windows动态链接库，位于sdk/dll目录中; 同样有Linux系统的G++ 8.2.0动态库在so目录中。头文件位于sdk/inc目录中。</p>
+                    <p>基本函数包括连接、退出服务端、执行sql语句、获取数据集行列信息及值信息。以下为一个完整的C语言接口示例(位于sdk/sql_lib_sample.c)：</p>
+                    <pre>
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include "sql_lib.h"
+int main(int argc, char** argv) {
+  if(!connect_to_server("192.168.5.10", 55555, "user", "user")){ return -1; }
+  const char* s = "create table tab1 (id u32(true), name string());";
+  void* d = exec(s, strlen(s));
+  if (d == NULL) { printf("execute sql failed\n"); return 0; }
+  del_datas(d);
+  s = "insert into tab1 (id,name) select seq(1000000), x2str(seq(1000000)+10);";
+  d = exec(s, strlen(s));
+  if (d == NULL) { printf("execute sql failed\n"); return 0; }
+  del_datas(d);
+  s = "select id,name from tab1;";
+  d = exec(s, strlen(s));
+  //d = exec("select id,name from tab1 where id < 10;");
+  if( d == NULL ){ printf("execute sql failed\n"); return 0; }
+  print(d);
+  //print_bymyself(d);
+  del_datas(d);
+  s = "drop table tab1;";
+  d = exec(s, strlen(s));
+  exit_to_server();
+  return 0;
+}</pre>
+                </figure>
+                <figure class="light" id="faq">
+                    <h2>常见问题</h2>
+                    <p>网络连接不成功
+                        <br>&nbsp;&nbsp;&nbsp;&nbsp;1，数蚕本地端不支持网络功能，使用客户端连接时确保服务端打开；默认配置文件中sct_mdb.toml，server段port指定本地链接端口。确保相应端口未被占用。
+                        <br>&nbsp;&nbsp;&nbsp;&nbsp;2，数蚕使用<a href="#login">登录验证策略</a>。确保操作次数未超过阈值要求。
+                    </p>
+                    <p>where语句不支持
+                        <br>数蚕where语句不兼容标准SQL内容，相关语句如行内条件过滤(id==name)、exist、group by等需要转换为<a href="#after">数据后置处理操作</a>。
+                    </p>
+                    <p>函数reg_match工作不正常
+                        <br>数蚕正则表达式解析库是ECMA-262(2011版)的实现，兼容大部分正则表达式语法，另新增\h匹配中文\H匹配非中文边界字符。正则表达式库为避免特殊情况下性能陷阱，默认使用非回溯匹配，即.*会匹配所有，在使用时应尽量避免使用.*。
+                    </p>
+                    <p>fuzzy_match特别慢
+                        <br>默认模糊匹配默认会匹配差异长度低于一半的所有匹配结果，因此匹配算法效率上不适用于长度较长字符串。
+                    </p>
+                    <p>错误反馈
+                        <br>数蚕内存数据库经过详细充分测试，但仍然可能无法避免部分未知错误，相关错误请发送问题描述至admin@shucantech.com。感谢您的反馈！
+                    </p>
+                </figure>
+            </div>
+        </div>
+        <div class="footer">
+            <div></div>
+        </div>
+    </div>
+
+    <script src="../3rd/jquery-3.3.1.slim.min.js" type="text/javascript"></script>
+    <script>
+        $("li").on("click", "a", function() {
+            $("a").removeClass("active");
+            $(this).addClass("active");
+        })
+
+        $("#menu").hover(function() {
+            $("#content").css("display", "block");
+            $(".detail").css("overflow-y", "hidden");
+            $("#content").click(function() {
+                this.style.display = "none";
+                $(".detail").css("overflow-y", "auto");
+            });
+        });
+    </script>
+</body>
+
+</html>

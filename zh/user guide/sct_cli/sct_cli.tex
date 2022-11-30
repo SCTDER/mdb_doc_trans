@@ -1,0 +1,39 @@
+\documentclass[UTF8,a4paper]{article}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{CTEX}
+\usepackage{etex}
+\usepackage{tikz}
+\usepackage{pgfmath}
+\usepackage{pgfplots}
+% \usepgflibrary{graphdrawing}
+% \usetikzlibrary{graphs,graphdrawing}
+% \usegdlibrary{trees,layered}
+
+\newcounter{minutes}
+\makeindex
+
+\begin{document}
+
+\pagenumbering{arabic}
+\include{chap/title}
+\include{chap/abstract}
+
+\tableofcontents
+
+\setlength{\parskip}{0.5em}
+
+\include{chap/chap1}
+\include{chap/chap2}
+\include{chap/chap3}
+\include{chap/chap4}
+\include{chap/chap5}
+\include{chap/chap6}
+\include{chap/chap7}
+
+\end{document}
